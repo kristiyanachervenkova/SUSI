@@ -13,10 +13,42 @@ int main()
 	University university;
 	const int n = 128;
 	char console[n];
+	std::string filename;
 	while (true)
 	{
+		std::cout << "\n\nAvailable options: open, close, save, help, exit ";
 		std::cin.getline(console, n);
-		std::cout << "\n\nAvailable options: Enroll, Advance, Graduate, Change, Interrupt, Resume, Print, PrintAll, EnrollIn, AddGrade, Protocol, Report: ";
+		if (strcmp("open", console) == 0)
+		{
+			std::getline(std::cin, filename);
+
+			university.open("nameFile.txt");
+		}
+		else if (strcmp("close", console) == 0)
+		{
+			university.close();
+		}
+		else if (strcmp("save", console) == 0)
+		{
+			university.save();
+		}
+
+		else if (strcmp("help", console) == 0)
+		{
+			std::cout << "The following commands are supported: \n";
+			std::cout << "open <file>	opens <file> \n";
+			std::cout << "close			closes currently opened file \n";
+			std::cout << "save			saves the currently open file \n";
+			std::cout << "saveas <file>	saves the currently open file in <file> \n";
+			std::cout << "help			prints this information \n";
+			std::cout << "exit			exists the program \n";
+		}
+		else if (strcmp("exit", console) == 0)
+		{
+			return 0;
+		}
+
+		//std::cout << "\n\nAvailable options: Enroll, Advance, Graduate, Change, Interrupt, Resume, Print, PrintAll, EnrollIn, AddGrade, Protocol, Report: ";
 		if (strcmp("Enroll", console) == 0)
 		{
 			char name[Student::MAX_STNAME_LEN + 1];
@@ -45,7 +77,7 @@ int main()
 			std::cin >> fn;
 			university.advance(fn);
 		}
-		else if (strcmp("change", console) == 0) 
+		else if (strcmp("Change", console) == 0) 
 		{
 			int fn;
 			std::cout << "FN: ";
@@ -134,46 +166,6 @@ int main()
 			university.report(fn, std::cout);
 		}
 
-	}
-
-	char command[n];
-	std::cin.getline(command, n);
-	std::ofstream YourFileName;
-	std::string filename;
-	std::cout << "\n\nAvailable options: open, close, save, help, exit ";
-	bool running = true;
-	while (running)
-	{
-		if (strcmp("open", command) == 0)
-		{
-			std::getline(std::cin, filename);
-
-			YourFileName.open((filename + ".txt").c_str());
-			university.open("nameFile.txt");
-		}
-		else if (strcmp("close", command) == 0)
-		{
-			university.close();
-		}
-		else if (strcmp("save", command) == 0)
-		{
-			university.save();
-		}
-
-		else if (strcmp("help", command) == 0)
-		{
-			std::cout << "The following commands are supported: \n";
-			std::cout << "open <file>	opens <file> \n";
-			std::cout << "close			closes currently opened file \n";
-			std::cout << "save			saves the currently open file \n";
-			std::cout << "saveas <file>	saves the currently open file in <file> \n";
-			std::cout << "help			prints this information \n";
-			std::cout << "exit			exists the program \n";
-		}
-		else if (strcmp("exit", command) == 0)
-		{
-			running = false;
-		}
 	}
 
 	return 0;
